@@ -4,9 +4,6 @@
   "description": "Adds Cypress commands to test common Drupal features.",
   "main": "src/index.js",
   "scripts": {},
-  "dependencies": {
-    "cypress": "10.3.0"
-  },
   "keywords": [
     "cypress",
     "drupal"
