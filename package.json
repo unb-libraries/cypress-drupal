@@ -15,5 +15,9 @@
     "name": "Patrick Schilf",
     "email": "pschilf@unb.ca"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unb-libraries/cypress-drupal.git"
+  },
   "license": "MIT"
 }
