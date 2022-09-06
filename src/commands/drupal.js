@@ -7,3 +7,10 @@ Cypress.Commands.add('drupalLogin', (username, password) => {
     }).submit()
   })
 })
+
+Cypress.Commands.add('drupalLoginAs', (userRole) => {
+  cy.fixture("users").then(users => {
+    const user = users.find(user => user.roles.includes(userRole))
+    cy.drupalLogin(user.name, user.pass)
+  })
+})
