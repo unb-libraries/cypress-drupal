@@ -28,3 +28,29 @@ Cypress.Commands.add('drupalSearchAndSelect', {prevSubject: 'element'}, (subject
     })
   }
 })
+
+Cypress.Commands.overwrite('selectFile', (originalFn, element, file, options) => {
+  options = {
+    waitForUpload: false,
+    filesFolder: `${Cypress.config().fixturesFolder}/files`,
+    ...options,
+  }
+
+  if (typeof file === 'string') {
+    file = [file]
+  }
+  const files = file.map(file => `${options.filesFolder}/${file}`)
+
+  if (options.waitForUpload) {
+    cy.location('pathname').then(pathname => {
+      cy.intercept('POST', `${pathname}?element_parents=*/widget/*`, req => {
+        req.on('response', res => res.setDelay(1000))
+      }).as('fileUpload')
+      originalFn(element, files, options)
+      cy.wait('@fileUpload')
+    })
+  }
+  else {
+    originalFn(element, files, options)
+  }
+})
