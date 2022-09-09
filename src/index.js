@@ -1,1 +1,2 @@
-import "./commands/drupal"
+import "./commands/auth"
+import "./commands/form"
