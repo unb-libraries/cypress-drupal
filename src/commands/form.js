@@ -1,3 +1,18 @@
+const widgets = require('./widgets')
+
+const fill = (subject, fields) => {
+  console.log(fields)
+  Object.entries(fields).forEach(([id, field]) => {
+    const { type, value } = field
+    const widgetType = widgets.hasOwnProperty(type) ? widgets[type] : widgets.default
+    const { selector, method } = new widgetType(id, {
+      multiValue: typeof value === 'object'
+    })
+    cy.get(selector)[method](value)
+  })
+  return cy.wrap(subject, {log: false})
+}
+
 const searchAndSelect = (subject, values, options) => {
   if (typeof values === 'string') {
     return searchAndSelect(subject, [values], options)
@@ -33,5 +48,6 @@ const selectFile = (originalFn, element, files, options) => {
   }
 }
 
+Cypress.Commands.add('drupalFillForm', {prevSubject: 'element'}, fill)
 Cypress.Commands.overwrite('selectFile', selectFile)
 Cypress.Commands.add('drupalSearchAndSelect', {prevSubject: 'element'}, searchAndSelect)
