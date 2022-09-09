@@ -1,66 +1,44 @@
-class Widget {
-  constructor(name, options = {}) {
-    this.name = name
-    this.options = {
-      multiValue: false,
-      ...options
+module.exports = (type, name) => {
+  const Input = (name) => {
+    return {
+      selector: `[name^="${name}["]`,
+      method: 'type',
     }
   }
 
-  get enter() {
-    return cy.get(this.selector)[this.method]
+  const Text = (name) => {
+    return Input(name)
   }
 
-  get selector() {
-    return `[name="${this.name}${this.selectorIndex}[${this.selectorProperty}]"]`
+  const Number = (name) => {
+    return Input(name)
+  }
+  
+  const AutoComplete = (name) => {
+    return {
+      ...Input(name),
+      method: 'drupalSearchAndSelect',
+    }
+  }
+  
+  const FileSelect = (name) => {
+    return {
+      ...Input(name),
+      selector: `[name^="files[${name}_"]`,
+      method: 'selectFile'
+    }
   }
 
-  get selectorName() {
-    return this.name
+  const types = {
+    default: Input,
+    input: Input,
+    text: Text,
+    number: Number,
+    autocomplete: AutoComplete,
+    file: FileSelect,
   }
 
-  get selectorIndex() {
-    return !this.options.multiValue ? '[0]' : ''
-  }
-
-  get selectorProperty() {
-    return 'value'
-  }
-
-  get method() {
-    return 'type'
-  }
-}
-
-class Autocomplete extends Widget {
-  get selectorProperty() {
-    return 'target_id'
-  }
-
-  get method() {
-    return 'drupalSearchAndSelect'
-  }
-}
-
-class FileSelect extends Widget {
-  get selector() {
-    return `[name="files[${this.selectorName}_${this.selectorIndex}]"]`
-  }
-
-  get selectorIndex() {
-    return !this.options.multiValue ? '0' : ''
-  }
-
-  get method() {
-    return 'selectFile'
-  }
-}
-
-module.exports = {
-  default: Widget,
-  input: Widget,
-  number: Widget,
-  text: Widget,
-  autocomplete: Autocomplete,
-  file: FileSelect,
+  return types.hasOwnProperty(type)
+    ? types[type](name)
+    : types.default(name)
 }

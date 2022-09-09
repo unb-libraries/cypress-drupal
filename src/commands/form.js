@@ -1,13 +1,9 @@
-const widgets = require('./widgets')
+const Widgets = require('./widgets')
 
 const fill = (subject, fields) => {
-  console.log(fields)
-  Object.entries(fields).forEach(([id, field]) => {
+  Object.entries(fields).forEach(([name, field]) => {
     const { type, value } = field
-    const widgetType = widgets.hasOwnProperty(type) ? widgets[type] : widgets.default
-    const { selector, method } = new widgetType(id, {
-      multiValue: typeof value === 'object'
-    })
+    const { selector, method } = Widgets(type, name)
     cy.get(selector)[method](value)
   })
   return cy.wrap(subject, {log: false})
