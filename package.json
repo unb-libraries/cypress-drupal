@@ -2,7 +2,7 @@
   "name": "@unb-libraries/cypress-drupal",
   "version": "0.0.1",
   "description": "Adds Cypress commands to test common Drupal features.",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {},
   "keywords": [
     "cypress",

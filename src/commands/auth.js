@@ -11,9 +11,15 @@ const login = (username, password) => {
 const loginAs = (userRole) => {
   cy.fixture("users").then(users => {
     const user = users.find(user => user.roles.includes(userRole))
-    cy.drupalLogin(user.name, user.pass)
+    cy.login(user.name, user.pass)
   })
 }
 
-Cypress.Commands.add('drupalLogin', login)
-Cypress.Commands.add('drupalLoginAs', loginAs)
+module.exports = {
+  login: {
+    fn: login,
+  },
+  loginAs: {
+    fn: loginAs,
+  }
+}
