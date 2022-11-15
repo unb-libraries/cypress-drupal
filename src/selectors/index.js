@@ -1,5 +1,5 @@
-const input = (name) => `input[name="${name}"]`
-const text = (name) => `text[name="${name}"]`
+const input = (name) => `input[name^="${name}"]`
+const text = (name) => `textarea[name^="${name}"]`
 const number = input
 const autocomplete = (name) => `input[name^="${name}["]`
 const fileSelect = (name) => `[name^="files[${name}_"]`
