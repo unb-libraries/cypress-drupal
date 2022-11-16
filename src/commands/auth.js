@@ -8,9 +8,9 @@ const login = (username, password) => {
   })
 }
 
-const loginAs = (userRole) => {
+const loginAs = (userOrRole) => {
   cy.fixture("users").then(users => {
-    const user = users.find(user => user.roles.includes(userRole))
+    const user = users.find(user => user.name === userOrRole || user.roles.includes(userOrRole))
     cy.login(user.name, user.pass)
   })
 }
