@@ -33,6 +33,20 @@ const selectFile = (originalFn, element, files, options) => {
   }
 }
 
+const enter = (subject, value) => {
+  // Autocomplete widget
+  if (subject.attr('class').includes('form-autocomplete')) {
+    return cy.wrap(subject).searchAndSelect(value)
+  }
+
+  // File select widget
+  if (subject.attr('type') === 'file') {
+    return cy.wrap(subject).selectFile(value)
+  }
+
+  return cy.wrap(subject).type(value)
+}
+
 module.exports = {
   searchAndSelect: {
     type: 'child',
@@ -44,5 +58,10 @@ module.exports = {
     type: 'child',
     subject: 'element',
     fn: selectFile,
+  },
+  enter: {
+    type: 'child',
+    subject: 'element',
+    fn: enter,
   }
 }
