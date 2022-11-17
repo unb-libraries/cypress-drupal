@@ -34,6 +34,16 @@ const selectFile = (originalFn, element, files, options) => {
 }
 
 const enter = (subject, value) => {
+  // Form
+  if (subject.prop('tagName') === 'FORM') {
+    return cy.wrap(subject).within(() => {
+      Object.entries(value).forEach(([key, value]) => {
+        cy.get(key.includes(':') ? `widget:${key}` : `widget:input:${key}`)
+          .enter(value)
+      })
+    })
+  }
+
   // Autocomplete widget
   if (subject.attr('class').includes('form-autocomplete')) {
     return cy.wrap(subject).searchAndSelect(value)

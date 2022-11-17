@@ -34,28 +34,7 @@ function deny(path, usernamesOrRoles) {
   })
 }
 
-function enterFormData(data, options) {
-  // const { submit, submitName } = {
-  //   submit: true,
-  //   submitName: 'op',
-  //   ...options
-  // }
-
-  cy.get('form').within(() => {
-    Object.entries(data).forEach(([key, value]) => {
-      cy.get(key.includes(':') ? `widget:${key}` : `widget:input:${key}`)
-        .enter(value)
-    })
-
-    // if (submit) {
-    //   cy.get(`[name="${submitName}"]`)
-    //     .click()
-    // }
-  })
-}
-
 module.exports = {
   grant,
   deny,
-  enterFormData,
 }
