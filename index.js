@@ -1,9 +1,9 @@
 const commands = require('./src/commands')
 const selectors = require('./src/selectors')
-const actions = require('./src/actions')
+const workflows = require('./src/workflows')
 
 module.exports = {
   commands,
   selectors,
-  actions,
+  workflows,
 }
