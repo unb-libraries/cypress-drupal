@@ -1,15 +1,23 @@
+const YAML = require('yaml')
 
 class DrupalPreprocessor {
   applies(filePath) {
-    return false
+    return filePath.match(/.*\.yml/)
   }
 
   get extname() {
-    return '.drupalcy.js'
+    return '.drupal.cy.js'
   }
 
   transform(spec) {
-    return spec
+    const yaml = YAML.parse(spec)
+    return `
+      describe('${yaml.title}', () => {
+        it('should work', () => {
+          expect(true).to.be.true
+        })
+      })
+    `
   }
 }
 

@@ -16,5 +16,8 @@
     "type": "git",
     "url": "https://github.com/unb-libraries/cypress-drupal.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "yaml": "^2.1.3"
+  }
 }
