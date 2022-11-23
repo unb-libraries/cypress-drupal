@@ -57,6 +57,12 @@ const enter = (subject, value) => {
   return cy.wrap(subject).type(value)
 }
 
+const submit = (originalFn, element, options) => {
+  cy.wrap(element)
+    .get('[name="op"]')
+    .click()
+}
+
 module.exports = {
   searchAndSelect: {
     type: 'child',
@@ -73,5 +79,11 @@ module.exports = {
     type: 'child',
     subject: 'element',
     fn: enter,
+  },
+  submit: {
+    method: 'overwrite',
+    type: 'child',
+    subject: 'element',
+    fn: submit,
   }
 }

@@ -28,6 +28,7 @@ function createEntity(ctx) {
       cy.visit(formUrl)
       cy.get('form')
         .enter(formData)
+        .submit()
       
       if (successUrl) {
         cy.url()
