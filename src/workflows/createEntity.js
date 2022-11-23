@@ -31,12 +31,12 @@ function createEntity(ctx) {
         .submit()
       
       if (successUrl) {
-        cy.url()
+          cy.url()
             .should('match', RegExp(successUrl))
-      }
+        } 
   
       if (successMessage) {
-        cy.get('[data-drupal-messages] .alert-success')
+        cy.get('status:success')
           .should('contain', successMessage)
       }
     })
