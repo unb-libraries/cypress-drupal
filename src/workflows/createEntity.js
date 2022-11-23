@@ -32,7 +32,7 @@ function createEntity(ctx) {
       
       if (successUrl) {
         cy.url()
-          .should('eq', `${Cypress.config('baseUrl')}${successUrl}`)
+            .should('match', RegExp(successUrl))
       }
   
       if (successMessage) {
