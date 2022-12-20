@@ -1,11 +1,15 @@
-const commands = require('./src/commands')
-const selectors = require('./src/selectors')
-const preprocessors = require('./src/preprocessors')
-const workflows = require('./src/workflows')
+const auth = require('./lib/commands/auth')
+const form = require('./lib/commands/form')
+const drupal = require('./lib/selectors/drupal')
+const yamlWorkflow = require('./lib/preprocessors/yamlWorkflow')
+const createEntity = require('./lib/workflows/createEntity')
+const userPermission = require('./lib/workflows/userPermission')
 
 module.exports = {
-  commands,
-  selectors,
-  preprocessors,
-  workflows,
+  auth,
+  form,
+  drupal,
+  yamlWorkflow,
+  createEntity,
+  userPermission,
 }
